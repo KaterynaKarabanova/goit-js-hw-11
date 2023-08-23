@@ -1,42 +1,37 @@
-// Описаний в документації
 import SimpleLightbox from "simplelightbox";
-// Додатковий імпорт стилів
 import "simplelightbox/dist/simple-lightbox.min.css";
-var lightbox = new SimpleLightbox('.gallery a', { 
-    captionsData: `alt` ,
-    captionPosition: `bottom`,
-    captionDelay: 250, 
-});
 import axios from 'axios';
-import {createMarkup} from './common.js'
-const BASE_URL = 'https://pixabay.com/api/';
-const API_KEY = '38988913-d6c8c466115d184c57d1b7d80';
-const PROXY_URL = 'https://cors-anywhere.herokuapp.com/';
+import { createMarkup } from './common.js';
 
+const BASE_URL = 'https://pixabay.com/api/?key=39007131-7339e45b97efcc367872ff842';
 const searchForm = document.querySelector('.search-form');
 const gallery = document.querySelector('.gallery');
 
 searchForm.addEventListener('submit', onSubmit);
 
 function onSubmit(e) {
-    e.preventDefault();
-    gallery.innerHTML = ""
+  e.preventDefault();
+  gallery.innerHTML = "";
 
   const inputValue = this.searchQuery.value.trim();
-  console.log(inputValue);
-const FULL_URL = `${PROXY_URL}${BASE_URL}?key=${API_KEY}&q=${inputValue}`;
+  const FULL_URL = `${BASE_URL}&q=${inputValue}&image_type=photo`;
+
   axios
     .get(FULL_URL)
-    .then((resp) => {
-            if (!resp.ok) {
-            throw new Error(resp.statusText)
-            }
-            return resp.json()
+    .then((resp) => resp.data)
+    .then((data) => {
+      createMarkup(data.hits);
+      const lightbox = new SimpleLightbox('.gallery a');
+      lightbox.refresh()
+      gallery.addEventListener("click", (e) => {
+        console.log(e.target.classList);
+         if (e.target.classList.contains("gallery__link")) {
+            return;
+         }
+         lightbox.open();
+      });
     })
-    .then((data) =>console.log(data.hits))
     .catch((error) => console.error(error));
+
   e.currentTarget.reset();
 }
-
-
-
