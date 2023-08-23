@@ -24,7 +24,6 @@ function onSubmit(e) {
   const options = new URLSearchParams(pixabay);
   // const FULL_URL = `${BASE_URL}&q=${inputValue}&image_type=photo`;
   const FULL_URL = `${BASE_URL}&${options}`;
-  currentUrl = FULL_URL
   render(FULL_URL)
   e.currentTarget.reset();
 }
