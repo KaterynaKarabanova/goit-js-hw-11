@@ -8,7 +8,7 @@ import "simplelightbox/dist/simple-lightbox.min.css";
     .map(({ webformatURL, largeImageURL, tags, likes, views,comments, downloads }) => `
       <div class="photo-card">
         <a class="gallery__link" href="${largeImageURL}">
-          <img src="${webformatURL}" alt="${tags}" class="gallery-image" loading="lazy">
+          <img src="${webformatURL}" alt="${tags}" class="gallery-image" loading="lazy" width="300" height="200">
           <div class="info">
             <p class="info-item">
                 <b>Likes </b><br>
@@ -32,9 +32,21 @@ import "simplelightbox/dist/simple-lightbox.min.css";
     `)
     .join("");
 
-     gallery.insertAdjacentHTML("beforeend", markup)
+   gallery.insertAdjacentHTML("beforeend", markup)
+     const lightbox = new SimpleLightbox('.gallery a');
+      lightbox.refresh()
+      smoothScroll() 
         
 }
+function smoothScroll() {
+  const { height: cardHeight } = document
+    .querySelector('.gallery')
+    .firstElementChild.getBoundingClientRect();
 
+  window.scrollBy({
+    top: cardHeight * 2,
+    behavior: 'smooth',
+  });
+}
 
 export { createMarkup }

@@ -10,29 +10,20 @@ export class PixabayApiImages {
     this.totalPages = 0;
   }
 
-  async getImages() {
-    const searchParams = new URLSearchParams({
-      key: '39007131-7339e45b97efcc367872ff842',
-      q: `${this.searchQuery}`,
-      image_type: 'photo',
-      orientation: 'horizontal',
-      safesearch: true,
-      per_page: `${this.per_page}`,
-      page: `${this.page}`,
-    });
+ 
 
-    const { data } = await axios.get(`${BASE_URL}?${searchParams}`);
-    return data;
+  incrementPage() {
+    return (this.page += 1);
   }
 
-//   incrementPage() {
-//     return (this.page += 1);
-//   }
-
-//   resetPage() {
-//     return (this.page = 1);
-//   }
-
+  resetPage() {
+    return (this.page = 1);
+  }
+  setparam(BASE_URL, object) {
+     const options = new URLSearchParams(object);
+    const FULL_URL = `${BASE_URL}&${options}`;
+    return FULL_URL
+  }
 //   setTotal(total) {
 //     return (this.totalPages = total);
 //   }
