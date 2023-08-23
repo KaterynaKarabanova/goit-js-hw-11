@@ -39,11 +39,11 @@ header{
     border-color: brown;
     background-color: beige;
     height: 30px;
-    width: 200px;
+    width: 300px;
     overflow: hidden;
     padding-left: 8px;
 }
-.search-form>button {
+button {
     border-radius: 10px;
         border-color: black;
         background-color: brown;
@@ -51,6 +51,15 @@ header{
         min-width: 60px;
         color: beige;
         font-weight: 600;
+}
+.load-button{
+    min-width: 120px;
+    font-size: 20px;
+    margin: 0 auto;
+    display: block;
+}
+.hidden{
+    display: none;
 }
 
     .container {
