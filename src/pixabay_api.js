@@ -11,11 +11,16 @@ export class PixabayApiImages {
   }
 
  
-
+  
   incrementPage() {
     return (this.page += 1);
   }
-
+  
+  async render(FULL_URL) {
+  const resp = await axios.get(FULL_URL);
+  return resp.data;
+}
+  
   resetPage() {
     return (this.page = 1);
   }
@@ -24,15 +29,4 @@ export class PixabayApiImages {
     const FULL_URL = `${BASE_URL}&${options}`;
     return FULL_URL
   }
-//   setTotal(total) {
-//     return (this.totalPages = total);
-//   }
-
-//   resetTotalPage() {
-//     return (this.totalPages = 0);
-//   }
-
-//   hasMoreImages() {
-//     return this.page === Math.ceil(this.totalPages / this.per_page);
-//   }
 }
